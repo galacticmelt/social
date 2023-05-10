@@ -6,7 +6,8 @@
   "main": "app.js",
   "scripts": {
     "test": "jest --watchAll --no-cache --detectOpenHandles",
-    "start": "nodemon app.ts"
+    "start": "nodemon dist/index.js",
+    "build": "npx tsc"
   },
   "author": "",
   "license": "ISC",
