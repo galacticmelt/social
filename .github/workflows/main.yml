@@ -1,0 +1,27 @@
+name: B & D
+on: [push] 
+permissions:
+  contents: write
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v3
+
+      - name: Install and Build 
+        run: |
+          ls -la
+          npm install
+          npm run-script build
+        env: 
+          VITE_BASE_URL: ${{secrets.VITE_BASE_URL}}
+
+      - name: Deploy 
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ./
+          branch: gh-pages
