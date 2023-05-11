@@ -1,0 +1,19 @@
+.chats {
+  min-height: 100%;
+  width: 22rem;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.searchWrapper {
+  height: 7rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+  gap: 1rem;
+}
+
+
