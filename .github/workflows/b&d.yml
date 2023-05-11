@@ -21,7 +21,5 @@ jobs:
           VITE_BASE_URL: ${{secrets.VITE_BASE_URL}}
 
       - name: Deploy 
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: dist
-          branch: gh-pages
+        run: |
+          ls -la
