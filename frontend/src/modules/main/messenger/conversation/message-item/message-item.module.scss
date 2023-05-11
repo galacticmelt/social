@@ -1,0 +1,30 @@
+.messageWrapperL {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+}
+
+.messageWrapperR {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.messageWrapperR + .messageWrapperL {
+  margin-bottom: 2rem;
+}
+
+.messageWrapperL + .messageWrapperR {
+  margin-bottom: 2rem;
+}
+
+.messageItem {
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+  text-align: left;
+}
+
+.messageItemTime {
+  text-align: right;
+}

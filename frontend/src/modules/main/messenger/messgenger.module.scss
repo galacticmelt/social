@@ -1,0 +1,23 @@
+.messenger {
+  width: 100%;
+  display: flex;
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+}
+
+.leftColumn {
+  box-sizing: border-box;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-right: 1rem;
+  padding: 1rem;
+  background-color: white;
+}
+
+.rightColumn {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+}
