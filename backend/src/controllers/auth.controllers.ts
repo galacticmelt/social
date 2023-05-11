@@ -20,7 +20,7 @@ const logIn = async (req: Request, res: Response, next: NextFunction) => {
     next(new AuthenticationError('Wrong password'));
   }
   const { id } = user[0]
-  const accessToken = await jwt.sign({ id }, process.env.JWT_ACCESS_SIGN!, { expiresIn: '5m' });
+  const accessToken = await jwt.sign({ id }, process.env.JWT_ACCESS_SIGN!, { expiresIn: '15m' });
   const refreshToken = await jwt.sign({ id }, process.env.JWT_REFRESH_SIGN!);
   res.cookie('jwtRef', refreshToken, {httpOnly: true, sameSite: 'none', secure: true});
   return res.status(201).json({accessToken: accessToken, userId: id});
@@ -32,7 +32,7 @@ const refreshAccess = async (req: Request, res: Response, next: NextFunction) =>
   if(!decoded) {
     next(new AuthenticationError('Invalid refresh token'));
   }
-  const newAccess = await jwt.sign({ id: decoded.id }, process.env.JWT_ACCESS_SIGN!, { expiresIn: '5m' })
+  const newAccess = await jwt.sign({ id: decoded.id }, process.env.JWT_ACCESS_SIGN!, { expiresIn: '15m' })
   return res.status(201).json({accessToken: newAccess});
 }
 
