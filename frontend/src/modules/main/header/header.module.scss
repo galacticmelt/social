@@ -1,0 +1,20 @@
+.headerContentWrapper {
+  height: 100%;
+  width: 1280px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 1rem 0 1rem;
+}
+
+.avatarWrapper {
+  height: 2rem;
+  width: 2rem;
+}
+
+@media(max-width: 1280px) {
+  .main{
+    width: 100%;
+  }
+}
