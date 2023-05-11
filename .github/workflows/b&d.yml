@@ -14,7 +14,6 @@ jobs:
 
       - name: Install and Build 
         run: |
-          ls -la
           npm install
           npm run-script build
         env: 
