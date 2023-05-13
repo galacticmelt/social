@@ -1,8 +1,5 @@
 name: B & D
-on: 
-  push:
-    branches: 
-     - gh-pages
+on: [push]
 permissions:
   contents: write
 jobs:
