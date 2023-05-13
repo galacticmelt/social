@@ -30,11 +30,12 @@ const profileSlice = createSlice({
       state.profileLoading = true;
     });
     builder.addCase(setProfile.fulfilled, (state, action) => {
-      const { _id, firstName, lastName, friends } = action.payload.user;
+      const { _id, firstName, lastName, dateOfBirth, friends } = action.payload.user;
       state.profileLoading = false;
       state.profileUserId = _id;
       state.firstName = firstName;
       state.lastName = lastName;
+      state.dateOfBirth = dateOfBirth;
       state.friends = friends;
     });
     builder.addCase(setProfile.rejected, (state, action) => {

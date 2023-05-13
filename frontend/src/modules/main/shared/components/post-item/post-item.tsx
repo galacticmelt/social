@@ -62,11 +62,11 @@ export default function PostItem({
             </Typography>
             <Typography variant="subtitle1">{normalizePostTime(createdAt)}</Typography>
           </Box>
-          {loggedUserId === creatorId && 
+          {loggedUserId === creatorId && (
             <IconButton onClick={handleDelPost}>
               <DeleteIcon color="disabled" />
             </IconButton>
-          }
+          )}
         </Box>
       </div>
       <Typography variant="subtitle1">{postText}</Typography>

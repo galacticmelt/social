@@ -1,23 +1,27 @@
+import { useState } from 'react';
 import { Typography, Box, CircularProgress, Avatar, Button } from '@mui/material';
 import PlaceIcon from '@mui/icons-material/Place';
 import SchoolIcon from '@mui/icons-material/School';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { currentChatActions } from '../../../../store/features/currentChat/currentChat.slice';
 import { chatsActions } from '../../../../store/features/chats/chats.slice';
-import { stringAvatar, stringToColor } from '../../shared/helpers';
+import { stringAvatar, stringToColor, calculateAge } from '../../shared/helpers';
 import styles from './user-info.module.scss';
 import { profileActions } from '../../../../store/features/profile/profile.slice';
 
 interface UserInfoProps {
   firstName: string;
   lastName: string;
+  dateOfBirth: Date;
   userLoading: boolean;
 }
 
-export default function UserInfo({ firstName, lastName, userLoading }: UserInfoProps) {
+export default function UserInfo({ firstName, lastName, dateOfBirth, userLoading }: UserInfoProps) {
   const { loggedUserId } = useAppSelector((state) => state.auth);
   const { profileUserId } = useAppSelector((state) => state.profile);
   const { chats } = useAppSelector((state) => state.chats);
+
+  const [editMode, setEditMode] = useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -65,7 +69,7 @@ export default function UserInfo({ firstName, lastName, userLoading }: UserInfoP
         <Typography variant="h5">{firstName}</Typography>
         <Typography variant="h5">{lastName}</Typography>
       </Box>
-      <Typography variant="subtitle1">26 y.o</Typography>
+      <Typography variant="subtitle1">{calculateAge(dateOfBirth)} y.o</Typography>
       <Box sx={{ display: 'flex' }}>
         <PlaceIcon color="disabled" sx={{ mr: 0.4 }} />
         <Typography variant="subtitle1">City</Typography>

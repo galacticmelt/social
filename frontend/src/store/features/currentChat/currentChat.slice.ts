@@ -68,15 +68,10 @@ const currentChatSlice = createSlice({
       return state;
     });
     builder.addCase(initNewChat.fulfilled, (state, action) => {
-      const { chatId, friendId, firstName, lastName } = action.payload;
-      state.chatId = chatId;
-      state.friendId = friendId;
-      state.firstName = firstName;
-      state.lastName = lastName;
+      return state;
     });
     builder.addCase(initNewChat.rejected, (state, action) => {
-      state.messagesError.status = true;
-      state.messagesError.value = action.payload;
+      return state;
     });
   }
 });
