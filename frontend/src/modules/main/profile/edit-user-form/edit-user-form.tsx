@@ -6,6 +6,7 @@ export default function EditUserForm() {
   const { location, almaMater } = useAppSelector(
     (state) => state.profile
   );
+  
   const [locationField, setLocationField] = useState(location);
   const [almaMaterField, setAlmaMaterField] = useState(almaMater);
 
