@@ -122,3 +122,8 @@ export const normalizePostTime = (createdAt: Date) => {
   if (parsed.isSame(now, 'year')) return `${parsed.format('DD MMM')} at ${parsed.format('HH:mm')}`;
   return parsed.format('DD.MM.YY');
 };
+
+export const calculateAge = (dateOfBirth: Date) => {
+  const today = dayjs();
+  return today.diff(dateOfBirth, 'year');
+};

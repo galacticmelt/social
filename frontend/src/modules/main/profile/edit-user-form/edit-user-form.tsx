@@ -1,7 +1,14 @@
+import { useState } from 'react';
 import { TextField, Typography, Button } from '@mui/material';
-import React from 'react';
+import { useAppSelector, useAppDispatch } from '../../../../store/hooks';
 
 export default function EditUserForm() {
+  const { location, almaMater } = useAppSelector(
+    (state) => state.profile
+  );
+  const [locationField, setLocationField] = useState(location);
+  const [almaMaterField, setAlmaMaterField] = useState(almaMater);
+
   return (
     <>
       <div>

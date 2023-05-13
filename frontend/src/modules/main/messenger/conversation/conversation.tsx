@@ -17,7 +17,7 @@ export default function Conversation() {
           <ConversationFooter />
         </>
       ) : (
-        <Typography variant="h3" sx={{ textAlign: 'center' }}>
+        <Typography variant="h3" sx={{ textAlign: 'center', pl: '1rem', pr: '1rem' }}>
           This is messenger. Start a conversation!
         </Typography>
       )}
