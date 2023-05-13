@@ -16,6 +16,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Install and Build 
         run: |
+          ls -la
           npm install
           npm run-script build
         env: 
