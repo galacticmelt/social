@@ -5,6 +5,8 @@ export type ProfileState = {
   firstName: string;
   lastName: string;
   dateOfBirth: Date;
+  location: string;
+  almaMater: string;
   friends: Friend[];
   profileLoading: boolean;
   profileError: {

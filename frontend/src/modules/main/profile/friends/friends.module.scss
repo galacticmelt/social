@@ -11,17 +11,20 @@
 
 .friendsGrid {
   display: grid;
-  gap: 2rem;
-  grid-template-columns: 4rem 4rem 4rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: space-between;
 }
 
 .friendsGridItem {
+  width: 6rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 0.5rem;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border-radius: 5%;
   cursor: pointer;
 }
 
@@ -31,6 +34,12 @@
   height: 3rem;
   width: 3rem;
   flex-grow: 1;
+}
+
+.hoverVisible {
+  &:hover {
+    background-color: #f3efef;
+  }
 }
 
 

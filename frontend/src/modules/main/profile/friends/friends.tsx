@@ -1,26 +1,21 @@
+import { useAppSelector } from '../../../../store/hooks';
 import { Typography } from '@mui/material';
 import UserAvatar from '../../shared/components/user-avatar/user-avatar';
-import { Friend } from '../../../../shared/types';
-import { SocketUser } from '../../../../store/features/socket/socket.types';
 import { profileActions } from '../../../../store/features/profile/profile.slice';
 import styles from './friends.module.scss';
 import { useAppDispatch } from '../../../../store/hooks';
 import FriendsSkeleton from './friends-skeleton';
 
-interface FriendsGridProps {
-  friends: Friend[];
-  onlineUsers: SocketUser[];
-  friendsLoading: boolean;
-}
-
-export default function Friends({ friends, onlineUsers, friendsLoading }: FriendsGridProps) {
+export default function Friends() {
+  const { friends, profileLoading } = useAppSelector((state) => state.profile);
+  const { onlineUsers } = useAppSelector((state) => state.socket);
   const dispatch = useAppDispatch();
 
   const handleOpenProfile = (userId: string) => {
     dispatch(profileActions.setProfile(userId));
   };
 
-  if (friendsLoading) {
+  if (profileLoading) {
     return <FriendsSkeleton />;
   }
 
@@ -34,7 +29,7 @@ export default function Friends({ friends, onlineUsers, friendsLoading }: Friend
         {friends.map((friend) => {
           return (
             <div
-              className={styles.friendsGridItem}
+              className={`${styles.friendsGridItem} ${styles.hoverVisible}`}
               key={friend._id}
               onClick={() => handleOpenProfile(friend._id)}
             >

@@ -44,7 +44,7 @@ export default function PostItem({
         display: 'flex',
         flexDirection: 'column',
         gap: '1rem',
-        flexShrink: 0
+        border: '1px solid lightgray'
       }}
     >
       <div>
