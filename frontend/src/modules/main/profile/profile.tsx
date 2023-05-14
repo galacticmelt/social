@@ -7,10 +7,7 @@ import { profilePostsActions } from '../../../store/features/profilePosts/profil
 import Posts from './posts/posts';
 
 export default function Profile() {
-  const { profileUserId, firstName, lastName, dateOfBirth, friends, profileLoading } =
-    useAppSelector((state) => state.profile);
-  const { onlineUsers } = useAppSelector((state) => state.socket);
-
+  const { profileUserId } = useAppSelector((state) => state.profile);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -23,13 +20,8 @@ export default function Profile() {
   return (
     <div className={styles.profile}>
       <div className={styles.leftColumn}>
-        <UserInfo
-          firstName={firstName}
-          lastName={lastName}
-          dateOfBirth={dateOfBirth}
-          userLoading={profileLoading}
-        />
-        <Friends friends={friends} onlineUsers={onlineUsers} friendsLoading={profileLoading} />
+        <UserInfo />
+        <Friends />
       </div>
       <div className={styles.rightColumn}>
         <Posts />

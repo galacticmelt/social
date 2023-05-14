@@ -9,4 +9,5 @@
 
 body {
   background-color: #e4e1e1;
+  overflow: scroll;
 }

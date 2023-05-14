@@ -23,10 +23,18 @@ export type RawChat = {
 
 export type User = {
   _id: string;
+  email: string;
   firstName: string;
   lastName: string;
-  email: string;
   friends: Friend[];
+};
+
+export type UserUpdate = {
+  firstName?: string;
+  lastName?: string;
+  dateOfBirth?: Date;
+  location?: string;
+  almaMater?: string;
 };
 
 export type PostData = {

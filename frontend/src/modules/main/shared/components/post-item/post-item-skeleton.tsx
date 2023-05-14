@@ -3,7 +3,16 @@ import styles from './post-item.module.scss';
 
 export default function PostItemSkeleton() {
   return (
-    <Card sx={{ width: 1, padding: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <Card
+      sx={{
+        width: 1,
+        padding: '1rem',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+        border: '1px solid lightgray'
+      }}
+    >
       <div>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <div className={styles.avatarWrapper}>
