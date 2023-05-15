@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Typography, TextField, Button } from '@mui/material';
+import { Typography, TextField, IconButton, ButtonGroup } from '@mui/material';
+import ImageIcon from '@mui/icons-material/Image';
+import CreateIcon from '@mui/icons-material/Create';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { profilePostsActions } from '../../../../store/features/profilePosts/profilePosts.slice';
 import { createPost, deletePost, updatePost } from '../../../../api/posts-api';
+import { convertToBase64 } from '../../shared/helpers';
 import PostsList from '../../shared/components/posts-list/posts-list';
 import styles from './posts.module.scss';
 
@@ -11,7 +14,9 @@ export default function Posts() {
   const { profileUserId } = useAppSelector((state) => state.profile);
   const { profilePosts, profilePostsLoading } = useAppSelector((state) => state.profilePosts);
   const { onlineUsers } = useAppSelector((state) => state.socket);
+
   const [postText, setPostText] = useState('');
+  const [postImage, setPostImage] = useState<File | null | undefined>(null);
   const [createPostErr, setCreatePostErr] = useState(null);
   const [delPostErr, setDelPostErr] = useState(null);
 
@@ -81,6 +86,11 @@ export default function Posts() {
     }
   };
 
+  const handleUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.currentTarget.files?.[0];
+    setPostImage(file);
+  };
+
   return (
     <div className={styles.posts}>
       <Typography variant="h5" sx={{ width: 1 }}>
@@ -88,8 +98,23 @@ export default function Posts() {
       </Typography>
       {profileUserId === loggedUserId && (
         <form className={styles.postForm}>
-          <TextField multiline sx={{ width: 1 }} value={postText} onChange={handleTextChange} />
-          <Button onClick={handleCreatePost}>Make a post</Button>
+          <TextField
+            multiline
+            sx={{ width: 1 }}
+            value={postText}
+            onChange={handleTextChange}
+            placeholder="Type what is on your mind..."
+          />
+          <ButtonGroup sx={{display: 'flex', alignItems: 'center'}}>
+            {postImage && <Typography variant='subtitle1'>{postImage.name}</Typography>}
+            <IconButton component="label">
+              <ImageIcon />
+              <input type="file" hidden onChange={handleUploadImage} />
+            </IconButton>
+            <IconButton onClick={handleCreatePost}>
+              <CreateIcon />
+            </IconButton>
+          </ButtonGroup>
         </form>
       )}
       <PostsList

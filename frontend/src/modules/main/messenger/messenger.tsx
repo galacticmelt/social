@@ -1,6 +1,6 @@
 import Conversation from './conversation/conversation';
 import Chats from './chats/chats';
-import styles from './messgenger.module.scss';
+import styles from './messenger.module.scss';
 
 export default function Messenger() {
   return (

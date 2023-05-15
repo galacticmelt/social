@@ -1,4 +1,5 @@
 .friends {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,13 +11,14 @@
 }
 
 .friendsGrid {
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   justify-content: space-between;
 }
 
 .friendsGridItem {
-  width: 6rem;
+  width: 5.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -5,9 +5,10 @@
 }
 
 .leftColumn {
-  width: 408px;
+  width: 300px;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   gap: 1rem;
   margin-right: 1rem;
 }
@@ -15,7 +16,7 @@
 .rightColumn {
   height: fit-content;
   width: 100%;
-  box-shadow: 0px 1px 5px 0px rgba(51, 51, 51, 0.2);
   margin-bottom: 1rem;
   background-color: white;
+  box-shadow: 0px 1px 5px 0px rgba(51, 51, 51, 0.2);
 }

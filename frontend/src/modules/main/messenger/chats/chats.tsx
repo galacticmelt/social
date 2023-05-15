@@ -20,7 +20,7 @@ export default function Chats() {
 
   return (
     <div className={styles.chats}>
-      <Typography variant="h4">Chats</Typography>
+      <Typography variant="h5">Chats</Typography>
       <ContactsList
         loggedUserId={loggedUserId}
         chatsList={chats}

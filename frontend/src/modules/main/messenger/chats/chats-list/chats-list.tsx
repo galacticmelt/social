@@ -30,35 +30,31 @@ export default function ChatsList({
   }
   return (
     <div className={styles.chatsList}>
-      {chatsLoading ? (
-        <>
-          {tenElemsMockArray.map((elem) => {
+      {chatsLoading
+        ? tenElemsMockArray.map((elem) => {
             return <ChatsListItemSkeleton key={elem} />;
-          })}
-        </>
-      ) : (
-        chatsList
-          .filter((chat) => chat.lastMessage)
-          .sort(
-            (a, b) =>
-              new Date(b.lastMessage.createdAt).valueOf() -
-              new Date(a.lastMessage.createdAt).valueOf()
-          )
-          .concat(chatsList.filter((chat) => !chat.lastMessage))
-          .map((chat) => {
-            return (
-              <ChatsListItem
-                key={chat.chatId}
-                loggedUserId={loggedUserId}
-                friendFirstName={chat.firstName}
-                friendLastName={chat.lastName}
-                isOnline={onlineUsers.some((onlineUser) => onlineUser.userId === chat.friendId)}
-                lastMessage={chat.lastMessage}
-                onClick={() => onClick(chat)}
-              />
-            );
           })
-      )}
+        : chatsList
+            .filter((chat) => chat.lastMessage)
+            .sort(
+              (a, b) =>
+                new Date(b.lastMessage.createdAt).valueOf() -
+                new Date(a.lastMessage.createdAt).valueOf()
+            )
+            .concat(chatsList.filter((chat) => !chat.lastMessage))
+            .map((chat) => {
+              return (
+                <ChatsListItem
+                  key={chat.chatId}
+                  loggedUserId={loggedUserId}
+                  friendFirstName={chat.firstName}
+                  friendLastName={chat.lastName}
+                  isOnline={onlineUsers.some((onlineUser) => onlineUser.userId === chat.friendId)}
+                  lastMessage={chat.lastMessage}
+                  onClick={() => onClick(chat)}
+                />
+              );
+            })}
     </div>
   );
 }
