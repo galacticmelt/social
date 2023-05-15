@@ -51,7 +51,7 @@ export default function Posts() {
 
   return (
     <div className={styles.posts}>
-      <Typography variant="h4" sx={{ width: 1 }}>
+      <Typography variant="h5" sx={{ width: 1 }}>
         Feed
       </Typography>
       <PostsList

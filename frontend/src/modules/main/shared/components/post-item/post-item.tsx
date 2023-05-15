@@ -10,6 +10,7 @@ import { SocketUser } from '../../../../../store/features/socket/socket.types';
 interface PostItemProps {
   loggedUserId: string;
   postText: string;
+  postImage: string;
   creatorId: string;
   creatorFirstName: string;
   creatorLastName: string;
@@ -25,6 +26,7 @@ interface PostItemProps {
 export default function PostItem({
   loggedUserId,
   postText,
+  postImage,
   creatorId,
   creatorFirstName,
   creatorLastName,
@@ -69,6 +71,7 @@ export default function PostItem({
           )}
         </Box>
       </div>
+      {postImage && <img className={styles.postImage} src={postImage} />}
       <Typography variant="subtitle1">{postText}</Typography>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
         {likedByLoggedUser ? (

@@ -14,5 +14,27 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  gap: 0.5rem;
   width: 100%;
+}
+
+.postImageWrapper {
+  position: relative;
+  margin-right: 0.5rem;
+}
+
+.postImage {
+  height: 30px;
+  width: 30px;
+}
+
+.postImageDelete {
+  position: absolute;
+  height: 15px;
+  width: 15px;
+  top: -5px;
+  right: -5px;
+  &:hover {
+    cursor: pointer;
+  }
 }

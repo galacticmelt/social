@@ -106,4 +106,3 @@ export default function EditUserForm({ handleToggleEditMode }: EditUserFormProps
     </div>
   );
 }
-

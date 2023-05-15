@@ -3,7 +3,8 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  gap: 0.5rem;
+  overflow-y: scroll;
   &.scrollable {
     overflow-y: scroll;
   }
