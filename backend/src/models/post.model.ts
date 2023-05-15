@@ -10,10 +10,7 @@ const PostSchema = new db.Schema({
     type: String,
     required: true
   },
-  image: {
-    data: Buffer,
-    contentType: String
-  },
+  image: String,
   likedBy: [{
     type: 'ObjectId',
     ref: 'User'
