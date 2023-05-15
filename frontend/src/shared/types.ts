@@ -40,6 +40,7 @@ export type UserUpdate = {
 export type PostData = {
   creator: string;
   text: string;
+  image?: string;
 };
 
 export type PostUpdate = {
@@ -55,6 +56,7 @@ export type Post = {
     lastName: string;
   };
   text: string;
+  image: string;
   likedBy: string[];
   createdAt: Date;
 };

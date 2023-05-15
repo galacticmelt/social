@@ -130,6 +130,9 @@ export const calculateAge = (dateOfBirth: Date) => {
 
 export const convertToBase64 = (file: File) => {
   return new Promise((resolve, reject) => {
+    if (file.type !== 'image/png') {
+      reject('Only image files accepted! Try again');
+    }
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
     fileReader.onload = () => resolve(fileReader.result);

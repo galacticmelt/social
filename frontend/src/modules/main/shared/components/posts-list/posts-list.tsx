@@ -41,6 +41,7 @@ export default function PostsList({
               creatorLastName={post.creator.lastName}
               createdAt={post.createdAt}
               postText={post.text}
+              postImage={post.image}
               likesCount={post.likedBy.length}
               likedByLoggedUser={post.likedBy.some((userId) => userId === loggedUserId)}
               onlineUsers={onlineUsers}
