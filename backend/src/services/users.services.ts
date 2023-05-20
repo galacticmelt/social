@@ -72,7 +72,7 @@ const getUsersFiltered = async (params: UsersGetFiltered, pagination: Pagination
   const paginationPipeline = generatePaginationPipeline(page, limit, indices.startIndex, indices.endIndex)
   paginationPipeline.forEach(stage => pipeline.push(stage));
   const users = await User.aggregate(pipeline, {allowDiskUse: true});
-  return users
+  return users[0]
 }
 
 const getUserById = (userId: string) => {

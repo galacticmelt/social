@@ -23,6 +23,7 @@ router.get('/getByUser/:userId',
 );
 
 router.get('/getFilteredPosts', 
+  bearerPassport,
   body('friends', 'friends ids array is required').notEmpty(),
   tryCatch(postsControllers.getFilteredPosts)
 );

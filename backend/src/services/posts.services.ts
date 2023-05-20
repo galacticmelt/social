@@ -51,7 +51,7 @@ const getFilteredPosts = async (params: PostsGetFiltered, pagination: Pagination
   paginationPipeline.forEach(stage => pipeline.push(stage));
   const posts = await Post.aggregate(pipeline, {allowDiskUse: true})
   await Post.populate(posts, {path: "creator", model: "User", select: ["firstName", "lastName"]})
-  return posts
+  return posts[0]
 }
 
 const getPostsByUser = (userId: string) => {

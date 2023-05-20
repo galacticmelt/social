@@ -10,8 +10,10 @@ const createMessage = async (req: Request, res: Response) => {
 }
 
 const getMessagesByChat = async (req: Request, res: Response) => {
-  const chatId = req.params.chatId
-  const messages = await messagesServices.getMessagesByChat(chatId)
+  const { chatId } = req.params
+  const page = parseInt(req.query.page as string)
+  const limit = parseInt(req.query.limit as string);
+  const messages = await messagesServices.getMessagesByChat(chatId, { page, limit })
   return res.status(200).json(messages)
 }
 
