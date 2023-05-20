@@ -22,10 +22,9 @@ router.get('/getByUser/:userId',
   tryCatch(postsControllers.getPostsByUser)
 );
 
-router.post('/getByFriends/', 
-  bearerPassport,
+router.get('/getFilteredPosts', 
   body('friends', 'friends ids array is required').notEmpty(),
-  tryCatch(postsControllers.getPostsByFriends)
+  tryCatch(postsControllers.getFilteredPosts)
 );
 
 router.patch('/:postId', 

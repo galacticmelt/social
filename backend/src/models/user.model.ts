@@ -33,6 +33,12 @@ const UserSchema = new db.Schema({
       type: 'ObjectId',
       ref: 'Chat'
     }
+  ],
+  posts: [
+    {
+      type: 'ObjectId',
+      ref: 'Post'
+    }
   ]
 })
 const User = db.model('User', UserSchema)

@@ -8,7 +8,15 @@ const getUserByParams = async (req: Request, res: Response) => {
   if(!user[0]) {
     return res.status(404).json({error: 'user not found'})
   }
-  return res.status(201).json({user: user})
+  return res.status(200).json({ user })
+}
+
+const getFilteredUsers = async (req: Request, res: Response) => {
+  const params = req.body
+  const page = parseInt(req.query.page as string)
+  const limit = parseInt(req.query.limit as string);
+  const users = await usersServices.getUsersFiltered(params, { page, limit });
+  return res.status(200).json(users)
 }
 
 const getUserById = async (req: Request, res: Response) => {
@@ -17,7 +25,7 @@ const getUserById = async (req: Request, res: Response) => {
   if(!user) {
     return res.status(404).json({error: 'user not found'})
   }
-  return res.status(201).json({user: user})
+  return res.status(200).json({ user })
 }
 
 const createUser = async (req: Request, res: Response) => {
@@ -38,10 +46,10 @@ const deleteUser = async (req: Request, res: Response) => {
   const id = req.params.userId
   await chatsServices.deleteChatsByUser(id);
   await usersServices.deleteUser(id)
-  return res.status(201).json({deleted: `user with id '${id}'`});
+  return res.status(200).json({deleted: `user with id '${id}'`});
 }
 
 export const usersControllers = {
-  getUserByParams, getUserById, createUser, updateUser, deleteUser  
+  getUserByParams, getUserById, getFilteredUsers, createUser, updateUser, deleteUser  
 }
 

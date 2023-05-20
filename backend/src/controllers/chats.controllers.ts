@@ -30,13 +30,13 @@ const createChat = async (req: Request, res: Response, next: NextFunction) => {
 const getChatsByUser = async (req: Request, res: Response) => {
   const userId = req.params.userId
   const chats = await chatsServices.getChatsByUser(userId)
-  return res.status(201).json(chats)
+  return res.status(200).json(chats)
 }
 
 const getChatById = async (req: Request, res: Response) => {
   const chatId = req.params.chatId
   const chat = await chatsServices.getChatById(chatId)
-  return res.status(201).json(chat)
+  return res.status(200).json(chat)
 }
 
 const deleteChat = async (req: Request, res: Response) => {
@@ -49,7 +49,7 @@ const deleteChat = async (req: Request, res: Response) => {
   });
   await messagesServices.deleteMessagesByChat(chatId);
   await chatsServices.deleteChat(chatId);
-  return res.status(201).json({deleted: `chat with id '${chatId}'`})
+  return res.status(200).json({deleted: `chat with id '${chatId}'`})
 }
 
 export const chatsControllers = { createChat, getChatsByUser, getChatById, deleteChat }

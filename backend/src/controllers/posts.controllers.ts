@@ -1,22 +1,29 @@
 import { NextFunction, Request, Response } from "express";
 import { postsServices } from "../services/posts.services.js";
+import User from "../models/user.model.js";
 
 const createPost = async (req: Request, res: Response) => {
-  const post = req.body
-  await postsServices.createPost(post)
+  const postData = req.body
+  const creator = req.body.creator
+  const post = await postsServices.createPost(postData)
+  post.save(async (err, savedPost) => {
+    await User.findByIdAndUpdate(creator, { $push: { posts: savedPost._id } })
+  })
   return res.status(201).json({created: `post: '${post.text}'`})
 }
 
 const getPostsByUser = async (req: Request, res: Response) => {
   const { userId } = req.params
   const posts = await postsServices.getPostsByUser(userId)
-  return res.status(201).json(posts)
+  return res.status(200).json(posts)
 }
 
-const getPostsByFriends= async (req: Request, res: Response) => {
-  const { friends } = req.body
-  const posts = await postsServices.getPostsByFriends(friends)
-  return res.status(201).json(posts)
+const getFilteredPosts= async (req: Request, res: Response) => {
+  const params = req.body
+  const page = parseInt(req.query.page as string)
+  const limit = parseInt(req.query.limit as string);
+  const posts = await postsServices.getFilteredPosts(params, { page, limit })
+  return res.status(200).json(posts)
 }
 
 const updatePost = async (req: Request, res: Response) => {
@@ -28,13 +35,13 @@ const updatePost = async (req: Request, res: Response) => {
 const deletePost = async (req: Request, res: Response) => {
   const { postId } = req.params
   await postsServices.deletePost(postId)
-  return res.status(201).json({deleted: `post, id: ${postId}`})
+  return res.status(200).json({deleted: `post, id: ${postId}`})
 }
 
 const deletePostsByUser = async (req: Request, res: Response) => {
   const { userId } = req.params
   const deleted = await postsServices.deletePostsByUser(userId)
-  return res.status(201).json({deleted: `, id: ${deleted}`})
+  return res.status(200).json({deleted: `, id: ${deleted}`})
 }
 
-export const postsControllers = { createPost, getPostsByUser, getPostsByFriends, updatePost, deletePostsByUser, deletePost }
+export const postsControllers = { createPost, getPostsByUser, getFilteredPosts, updatePost, deletePostsByUser, deletePost }

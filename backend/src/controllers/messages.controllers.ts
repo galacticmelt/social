@@ -12,18 +12,18 @@ const createMessage = async (req: Request, res: Response) => {
 const getMessagesByChat = async (req: Request, res: Response) => {
   const chatId = req.params.chatId
   const messages = await messagesServices.getMessagesByChat(chatId)
-  return res.status(201).json(messages)
+  return res.status(200).json(messages)
 }
 
 const deleteMessage = async (req: Request, res: Response) => {
   const messageId = req.params.messageId
   const deleted = messagesServices.deleteMessage(messageId)
-  return res.status(201).json({deleted: `message, id: ${deleted}`})
+  return res.status(200).json({deleted: `message, id: ${deleted}`})
 }
 
 const deleteMessagesByChat = async (req: Request, res: Response) => {
   const deleted = messagesServices.deleteMessage(req.params.chatId)
-  return res.status(201).json({deleted: `, id: ${deleted}`})
+  return res.status(200).json({deleted: `, id: ${deleted}`})
 }
 
 export const messagesControllers = { createMessage, getMessagesByChat, deleteMessage }
