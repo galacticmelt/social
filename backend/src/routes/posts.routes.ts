@@ -17,26 +17,29 @@ router.post('/',
 );
 
 router.get('/getByUser/:userId', 
-  bearerPassport,
   param('userId', 'invalid user id').matches(/^[0-9a-fA-F]{24}$/),
+  validationResultHandler,
   tryCatch(postsControllers.getPostsByUser)
 );
 
-router.get('/getFilteredPosts', 
-  bearerPassport,
-  body('friends', 'friends ids array is required').notEmpty(),
+router.post('/getFilteredPosts', 
+  body('page', 'page number is required').notEmpty(),
+  body('limit', 'documents limit is required').notEmpty(),
+  validationResultHandler,
   tryCatch(postsControllers.getFilteredPosts)
 );
 
 router.patch('/:postId', 
   bearerPassport,
   param('postId', 'invalid post id').matches(/^[0-9a-fA-F]{24}$/),
+  validationResultHandler,
   tryCatch(postsControllers.updatePost)
 );
 
 router.delete('/deleteByUser/:userId', 
   bearerPassport,
   param('userId', 'invalid user id').matches(/^[0-9a-fA-F]{24}$/),
+  validationResultHandler,
   tryCatch(postsControllers.deletePostsByUser)
 );
 

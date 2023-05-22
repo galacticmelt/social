@@ -1,5 +1,6 @@
 import { ObjectId } from "mongodb";
 import Post from "../models/post.model.js";
+import User from "../models/user.model.js";
 import { calculateIndices, generatePaginationPipeline } from "../helpers/pagination.js";
 import { count } from "console";
 
@@ -35,6 +36,7 @@ const getFilteredPosts = async (params: PostsGetFiltered, pagination: Pagination
     {$project: { 
       "creator": 1,
       "text": 1,
+      "image": 1,
       "updatedAt": 1,
       "likedBy": 1,
       "likesCount": { $cond: [{ $isArray: "$likedBy" }, { $size: "$likedBy" }, 0]}
@@ -46,12 +48,27 @@ const getFilteredPosts = async (params: PostsGetFiltered, pagination: Pagination
   if (likesCountSort && !updatedAtSort) pipeline.push({ $sort: { "likesCount": likesCountSort } })
   if (updatedAtSort && !likesCountSort) pipeline.push({ $sort: { "updatedAt": updatedAtSort } })
   if (updatedAtSort && likesCountSort) pipeline.push({ $sort: { "likesCount": likesCountSort, "updatedAt": updatedAtSort } })
+  pipeline.push(
+    {$lookup: {
+      from: "users",
+      localField: "creator",
+      foreignField: "_id",
+      pipeline: [
+        {$project: {
+          _id: 1,
+          firstName: 1,
+          lastName: 1
+        }}
+      ],
+      as: "creator",
+    }},
+    {$unwind: "$creator"},
+  )
   let { page, limit } = pagination
   const indices = calculateIndices(page, limit);
   const paginationPipeline = generatePaginationPipeline(page, limit, indices.startIndex, indices.endIndex)
   paginationPipeline.forEach(stage => pipeline.push(stage));
   const posts = await Post.aggregate(pipeline, {allowDiskUse: true})
-  await Post.populate(posts, {path: "creator", model: "User", select: ["firstName", "lastName"]})
   return posts[0]
 }
 

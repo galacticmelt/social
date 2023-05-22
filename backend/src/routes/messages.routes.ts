@@ -20,6 +20,7 @@ router.post('/',
 router.get('/getByChat/:chatId', 
   bearerPassport,
   param('chatId', 'invalid chat id').matches(/^[0-9a-fA-F]{24}$/),
+  validationResultHandler,
   tryCatch(messagesControllers.getMessagesByChat)
 );
 

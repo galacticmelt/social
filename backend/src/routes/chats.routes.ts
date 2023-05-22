@@ -17,18 +17,21 @@ router.post('/',
 router.get('/getByUser/:userId', 
   bearerPassport,
   param('userId', 'invalid user id').matches(/^[0-9a-fA-F]{24}$/),
+  validationResultHandler,
   tryCatch(chatsControllers.getChatsByUser)
 );
 
 router.get('/:chatId', 
   bearerPassport,
   param('chatId', 'invalid chat id').matches(/^[0-9a-fA-F]{24}$/),
+  validationResultHandler,
   tryCatch(chatsControllers.getChatById)
 );
 
 router.delete('/:chatId',
   bearerPassport,
   param('chatId', 'invalid chat id').matches(/^[0-9a-fA-F]{24}$/),
+  validationResultHandler,
   tryCatch(chatsControllers.deleteChat)
 );
 
