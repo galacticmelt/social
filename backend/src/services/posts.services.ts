@@ -36,6 +36,7 @@ const getFilteredPosts = async (params: PostsGetFiltered, pagination: Pagination
       "creator": 1,
       "text": 1,
       "updatedAt": 1,
+      "likedBy": 1,
       "likesCount": { $cond: [{ $isArray: "$likedBy" }, { $size: "$likedBy" }, 0]}
     }}
   )
