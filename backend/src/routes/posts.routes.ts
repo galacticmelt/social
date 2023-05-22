@@ -23,9 +23,7 @@ router.get('/getByUser/:userId',
 );
 
 router.post('/getFilteredPosts', 
-  body('page', 'page number is required').notEmpty(),
-  body('limit', 'documents limit is required').notEmpty(),
-  validationResultHandler,
+  bearerPassport,
   tryCatch(postsControllers.getFilteredPosts)
 );
 
