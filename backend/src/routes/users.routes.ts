@@ -13,7 +13,7 @@ router.get('/',
   tryCatch(usersControllers.getUserByParams)
 )
 
-router.get('/getFilteredUsers', 
+router.post('/getFilteredUsers', 
   bearerPassport,
   tryCatch(usersControllers.getFilteredUsers)
 )

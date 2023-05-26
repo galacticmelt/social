@@ -2,6 +2,7 @@ import express from 'express';
 import http from 'http';
 import cors from 'cors';
 import cookieParser from "cookie-parser";
+import bodyParser from 'body-parser';
 import socketServer from './socketServer.js';
 import { connectDB } from './src/db.js';
 import usersRouter from './src/routes/users.routes.js';
@@ -17,6 +18,7 @@ dotenv.config();
 const app = express()
 const server = http.createServer(app);
 
+app.use(bodyParser.json({limit: '10mb'}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
