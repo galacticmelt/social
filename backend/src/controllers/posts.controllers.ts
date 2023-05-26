@@ -34,8 +34,9 @@ const updatePost = async (req: Request, res: Response) => {
 
 const deletePost = async (req: Request, res: Response) => {
   const { postId } = req.params
-  await postsServices.deletePost(postId)
-  return res.status(200).json({deleted: `post, id: ${postId}`})
+  const deleted = await postsServices.deletePost(postId)
+  await User.findByIdAndUpdate(deleted?.creator, { $pull: { posts: deleted?._id } })
+  return res.status(200).json({deleted: `post, id: ${deleted?._id}`})
 }
 
 const deletePostsByUser = async (req: Request, res: Response) => {
