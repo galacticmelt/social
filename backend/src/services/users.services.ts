@@ -26,7 +26,7 @@ interface UserGetByParams {
 }
 
 interface UsersGetFiltered {
-  ids: string[];
+  usersIds: string[];
   fullName: string;
   age: number[];
   postsCountSort: 1 | -1;
@@ -61,10 +61,10 @@ const getUsersFiltered = async (params: UsersGetFiltered, pagination: Pagination
       "postsCount": { $cond: [{ $isArray: "$posts" }, { $size: "$posts" }, 0]}
     }}
   )
-  const ids = params.ids?.map(id => new ObjectId(id))
+  const usersIds = params.usersIds?.map(id => new ObjectId(id))
   const { fullName, age, postsCountSort } = params
-  if (ids) pipeline.push({ $match: {"_id": { $in: ids } }})
-  if (fullName) pipeline.push({ $match: {"name": { $regex: new RegExp(fullName, 'i') }}})
+  if (usersIds) pipeline.push({ $match: {"_id": { $in: usersIds } }})
+  if (fullName) pipeline.push({ $match: {"fullName": { $regex: new RegExp(fullName, 'i') }}})
   if (age) pipeline.push({ $match: {"age": { $gte: age[0], $lte: age[1] }}})
   if (postsCountSort) pipeline.push({ $sort: { "postsCount": postsCountSort }})
   const { page, limit } = pagination
