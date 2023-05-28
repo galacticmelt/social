@@ -18,7 +18,7 @@ interface PostUpdates {
 interface PostsGetFiltered {
   usersIds?: string[];
   likesCountSort?: 1 | -1;
-  updatedAtSort?: 1 | -1;
+  createdAtSort?: 1 | -1;
 }
 
 interface PaginationData {
@@ -43,11 +43,11 @@ const getFilteredPosts = async (params: PostsGetFiltered, pagination: Pagination
     }}
   )
   const usersIds = params.usersIds?.map(id => new ObjectId(id))
-  const { updatedAtSort, likesCountSort } = params
+  const { createdAtSort, likesCountSort } = params
   if (usersIds) pipeline.push({ $match: { "creator": { $in: usersIds } } })
-  if (likesCountSort && !updatedAtSort) pipeline.push({ $sort: { "likesCount": likesCountSort } })
-  if (updatedAtSort && !likesCountSort) pipeline.push({ $sort: { "updatedAt": updatedAtSort } })
-  if (updatedAtSort && likesCountSort) pipeline.push({ $sort: { "likesCount": likesCountSort, "updatedAt": updatedAtSort } })
+  if (likesCountSort && !createdAtSort) pipeline.push({ $sort: { "likesCount": likesCountSort } })
+  if (createdAtSort && !likesCountSort) pipeline.push({ $sort: { "createdAt": createdAtSort } })
+  if (createdAtSort && likesCountSort) pipeline.push({ $sort: { "likesCount": likesCountSort, "createdAt": createdAtSort } })
   pipeline.push(
     {$lookup: {
       from: "users",
