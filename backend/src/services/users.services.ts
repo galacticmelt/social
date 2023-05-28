@@ -27,7 +27,7 @@ interface UserGetByParams {
 
 interface UsersGetFiltered {
   usersIds: string[];
-  fullName: string;
+  name: string;
   age: number[];
   postsCountSort: 1 | -1;
 }
@@ -52,6 +52,7 @@ const getUsersFiltered = async (params: UsersGetFiltered, pagination: Pagination
       "firstName": 1,
       "lastName": 1,
       "fullName": { $concat : [ "$firstName", " ", "$lastName"] },
+      "fullNameBackwards": { $concat : [ "$lastName", " ", "$firstName"] },
       "age": {
         $subtract: [
            { $subtract: [{ $year: "$$NOW" }, { $year: "$dateOfBirth" }] },
@@ -62,9 +63,16 @@ const getUsersFiltered = async (params: UsersGetFiltered, pagination: Pagination
     }}
   )
   const usersIds = params.usersIds?.map(id => new ObjectId(id))
-  const { fullName, age, postsCountSort } = params
+  const { name, age, postsCountSort } = params
   if (usersIds) pipeline.push({ $match: {"_id": { $in: usersIds } }})
-  if (fullName) pipeline.push({ $match: {"fullName": { $regex: new RegExp(fullName, 'i') }}})
+  if (name) pipeline.push({ 
+    $match: { 
+      $or: [
+        {"fullName": { $regex: new RegExp(`^${name}`, 'i') }}, 
+        {"fullNameBackwards": { $regex: new RegExp(`^${name}`, 'i') }}, 
+      ]
+    }
+  })
   if (age) pipeline.push({ $match: {"age": { $gte: age[0], $lte: age[1] }}})
   if (postsCountSort) pipeline.push({ $sort: { "postsCount": postsCountSort }})
   const { page, limit } = pagination
