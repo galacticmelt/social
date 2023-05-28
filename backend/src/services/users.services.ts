@@ -29,7 +29,7 @@ interface UsersGetFiltered {
   ids: string[];
   fullName: string;
   age: number[];
-  postsSort: 1 | -1;
+  postsCountSort: 1 | -1;
 }
 
 interface PaginationData {
@@ -62,11 +62,11 @@ const getUsersFiltered = async (params: UsersGetFiltered, pagination: Pagination
     }}
   )
   const ids = params.ids?.map(id => new ObjectId(id))
-  const { fullName, age, postsSort } = params
+  const { fullName, age, postsCountSort } = params
   if (ids) pipeline.push({ $match: {"_id": { $in: ids } }})
   if (fullName) pipeline.push({ $match: {"name": { $regex: new RegExp(fullName, 'i') }}})
   if (age) pipeline.push({ $match: {"age": { $gte: age[0], $lte: age[1] }}})
-  if (postsSort) pipeline.push({ $sort: { "postsCount": postsSort }})
+  if (postsCountSort) pipeline.push({ $sort: { "postsCount": postsCountSort }})
   const { page, limit } = pagination
   const indices = calculateIndices(page, limit);
   const paginationPipeline = generatePaginationPipeline(page, limit, indices.startIndex, indices.endIndex)
